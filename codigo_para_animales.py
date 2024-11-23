@@ -7,10 +7,6 @@ Original file is located at
     https://colab.research.google.com/drive/1os3u5SvbjIt3T1oTpyc6yJuZVxx8VmJj
 """
 
-!pip install matplotlib
-!pip install biopython
-!pip install biopython matplotlib prody
-
 import numpy as np
 import matplotlib.pyplot as plt
 from mpl_toolkits.mplot3d import Axes3D
