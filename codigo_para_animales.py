@@ -67,24 +67,45 @@ def calcular_proporcion_nucleotidos(secuencia_adn):
     ax.set_title("Proporción de Nucleótidos en la Secuencia de ADN")
     st.pyplot(fig)
 
+# Diccionario con las secuencias de ADN de 10 animales
+secuencias_adn = {
+    'Humano': 'ATGCATGCATGCATGCATGCATGCATGCATGCATGCATGCATGC',
+    'Perro': 'ATGCGATCGTAGCTGACTAGCAGTCATCGGATCGTAGCTAGCTAGC',
+    'Gato': 'ATGCATGCTAGCTAGCGATCGATCGACTGATCGATCGATCGTACGTA',
+    'Caballo': 'ATGCATGCAGCTAGCATCGATCGGATCGAGCTAGCTAGCTAGCTGAC',
+    'Vaca': 'ATGCGATCGTAGCTAGCTAGCTAGCTGATCGGATCGTAGCATCGTAC',
+    'Elefante': 'ATGCTAGCTAGCTAGCTAGCTGAGCTAGCTAGCTAGCTAGCATGATG',
+    'León': 'ATGCATGCATGCATGCATCGTGCATCGATGCTAGCTAGCTAGCGATC',
+    'Tigre': 'ATGCATGCATGCATCGATGCTAGCTAGCTAGATCGATGCGTACGATA',
+    'Oso': 'ATGCATGCATGCAGTCGATGCTAGCTAGCTAGCGCATCGTACGAGAT',
+    'Zebra': 'ATGCATGCTAGCTAGCTAGCTAGCAGTCGATGCATCGGATGCTAGCA'
+}
+
 # Función principal para ejecutar todas las visualizaciones
 def main():
-    secuencia_adn = st.text_input("Introduce la secuencia de ADN del animal: ")
-    if secuencia_adn:
-        # Validar secuencia
-        if not all(base in 'ATCG' for base in secuencia_adn):
-            st.error("La secuencia de ADN contiene caracteres no válidos. Asegúrate de que solo contenga A, T, C y G.")
-            return
+    # Agregar un selector para elegir el animal
+    animal = st.selectbox("Elige el animal", list(secuencias_adn.keys()))
+    
+    # Obtener la secuencia de ADN según la selección
+    secuencia_adn = secuencias_adn[animal]
 
-        # Visualizar la doble hélice
-        generar_helice_adn(secuencia_adn)
+    # Mostrar la secuencia seleccionada
+    st.write(f"Secuencia de ADN de {animal}: {secuencia_adn}")
 
-        # Obtener y graficar los codones
-        codones = obtener_codones(secuencia_adn)
-        graficar_codones(codones)
+    # Validar secuencia (solo A, T, C, G)
+    if not all(base in 'ATCG' for base in secuencia_adn):
+        st.error("La secuencia de ADN contiene caracteres no válidos. Asegúrate de que solo contenga A, T, C y G.")
+        return
 
-        # Calcular y mostrar la proporción de nucleótidos
-        calcular_proporcion_nucleotidos(secuencia_adn)
+    # Visualizar la doble hélice
+    generar_helice_adn(secuencia_adn)
+
+    # Obtener y graficar los codones
+    codones = obtener_codones(secuencia_adn)
+    graficar_codones(codones)
+
+    # Calcular y mostrar la proporción de nucleótidos
+    calcular_proporcion_nucleotidos(secuencia_adn)
 
 if __name__ == "__main__":
     main()
