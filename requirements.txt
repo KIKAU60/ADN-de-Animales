@@ -2,4 +2,4 @@ streamlit
 pandas
 matplotlib
 biopython
-biopython matplotlib prody
+biopython_matplotlib_prody
