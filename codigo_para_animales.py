@@ -5,6 +5,9 @@ from mpl_toolkits.mplot3d import Axes3D
 from collections import Counter
 from Bio.Seq import Seq
 
+# Importar el archivo con las secuencias de ADN
+from secuencias_adn import secuencias_adn
+
 # Función para generar la doble hélice
 def generar_helice_adn(secuencia_adn):
     colores = {'A': 'blue', 'T': 'red', 'C': 'green', 'G': 'yellow'}
@@ -67,23 +70,13 @@ def calcular_proporcion_nucleotidos(secuencia_adn):
     ax.set_title("Proporción de Nucleótidos en la Secuencia de ADN")
     st.pyplot(fig)
 
-# Diccionario con las secuencias de ADN de 10 animales
-
 # Función principal para ejecutar todas las visualizaciones
 def main():
-    # Agregar un selector para elegir el animal
-    animal = st.selectbox("Elige el animal", list(secuencias_adn.keys()))
-    
-    # Obtener la secuencia de ADN según la selección
+    # Crear un selector para elegir entre las secuencias de ADN de los animales
+    animal = st.selectbox("Selecciona un animal", list(secuencias_adn.keys()))
+
+    # Obtener la secuencia de ADN del animal seleccionado
     secuencia_adn = secuencias_adn[animal]
-
-    # Mostrar la secuencia seleccionada
-    st.write(f"Secuencia de ADN de {animal}: {secuencia_adn}")
-
-    # Validar secuencia (solo A, T, C, G)
-    if not all(base in 'ATCG' for base in secuencia_adn):
-        st.error("La secuencia de ADN contiene caracteres no válidos. Asegúrate de que solo contenga A, T, C y G.")
-        return
 
     # Visualizar la doble hélice
     generar_helice_adn(secuencia_adn)
